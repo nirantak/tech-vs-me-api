@@ -102,13 +102,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file': {
+        'heroku': {
             'level': 'WARNING',
             'filters': ['require_debug_false'],
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/debug.log'),
-            'maxBytes': 1024 * 1024 * 5,  # 5MB
-            'backupCount': 5,
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
         'mail_admins': {
@@ -125,7 +122,7 @@ LOGGING = {
             'propagate': True,
         },
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console', 'heroku'],
             'propagate': True,
         },
     }
