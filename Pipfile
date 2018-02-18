@@ -1,0 +1,27 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+django = ">2.0"
+djangorestframework = ">3.7"
+markdown = "*"
+django-filter = "*"
+gunicorn = "*"
+dj-database-url = "*"
+"psycopg2" = "*"
+whitenoise = "*"
+coreapi = "*"
+
+
+[dev-packages]
+
+
+
+[requires]
+
+python_version = "3.6"
