@@ -1,25 +1,39 @@
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_APP_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_APP = os.path.basename(PROJECT_APP_PATH)
+PROJECT_ROOT = BASE_DIR = os.path.dirname(PROJECT_APP_PATH)
 
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+DEBUG = False
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Security Settings
+ALLOWED_HOSTS = ['.techversus.me', 'techversusme.herokuapp.com']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+APPEND_SLASH = True
+PREPEND_WWW = False
+X_FRAME_OPTIONS = 'DENY'
 
-ALLOWED_HOSTS = []
+ADMINS = [('Nirantak', os.environ['ADMIN_EMAIL'])]
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_SUBJECT_PREFIX = '[techversus.me] '
+EMAIL_USE_LOCALTIME = True
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -37,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'techversusme.urls'
@@ -44,7 +60,7 @@ ROOT_URLCONF = 'techversusme.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,17 +75,82 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'techversusme.wsgi.application'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s|%(asctime)s|%(module)s|%(filename)s|%(lineno)d|%(message)s',
+            'datefmt': "%d/%b/%Y %H:%M:%S",
+        },
+        'simple': {
+            'format': '%(levelname)s | %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'level': 'WARNING',
+            'filters': ['require_debug_false'],
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/debug.log'),
+            'maxBytes': 1024 * 1024 * 5,  # 5MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console', 'file'],
+            'propagate': True,
+        },
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# Production Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '',
+                'USER': '',
+                'PASSWORD': '',
+                'HOST': '',
+                'PORT': '',
+                'CONN_MAX_AGE': 500,
     }
 }
-
+# For Heroku
+# Update database configuration with $DATABASE_URL.
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -89,22 +170,29 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Kolkata'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# For whitenoise compression and caching
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+f = os.path.join(PROJECT_APP_PATH, "local_settings.py")
+if os.path.exists(f):
+    import sys
+    import imp
+    module_name = "%s.local_settings" % PROJECT_APP
+    module = imp.new_module(module_name)
+    module.__file__ = f
+    sys.modules[module_name] = module
+    exec(open(f, "rb").read())
