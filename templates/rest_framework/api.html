@@ -1,0 +1,9 @@
+{% extends "rest_framework/base.html" %}
+
+{% block title %}{% if name %}{{ name }} – {% endif %}Tech Versus Me{% endblock %}
+
+{% block branding %}
+    <a class='navbar-brand' href='https://techversus.me/' target="_blank">
+        Tech Versus Me
+    </a>
+{% endblock %}
