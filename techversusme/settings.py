@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 PROJECT_APP_PATH = os.path.dirname(os.path.abspath(__file__))
 PROJECT_APP = os.path.basename(PROJECT_APP_PATH)
@@ -132,7 +133,8 @@ LOGGING = {
             'propagate': True,
         },
         'django': {
-            'handlers': ['console', 'heroku'], # 'handlers': ['console', 'file'], if not heroku
+            'handlers': ['console', 'heroku'],
+            # 'handlers': ['console', 'file'], if not heroku
             'propagate': True,
         },
     }
@@ -150,14 +152,13 @@ DATABASES = {
                 'PASSWORD': '',
                 'HOST': '',
                 'PORT': '',
-                'CONN_MAX_AGE': 500,
+                'CONN_MAX_AGE': 600,
     }
 }
 # For Heroku
 # Update database configuration with $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+DATABASES['default'] = dj_database_url.config(
+    conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
