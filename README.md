@@ -28,8 +28,6 @@ Such constraints are:
 
 ### Endpoints
 
-<center>
-
 | Name | URI | Method | Description |
 | ----- | ----- | ----- | ----- |
 | index | / | GET, OPTIONS | Index View with metadata |
@@ -37,8 +35,6 @@ Such constraints are:
 | post | /posts/\<id:int>/ | GET, OPTIONS | Show individual post by id |
 | authors | /authors/ | GET, OPTIONS | List all authors |
 | author | /authors/\<id:int>/ | GET, OPTIONS | Show individual author by id |
-
-</center>
 
 ### License
 

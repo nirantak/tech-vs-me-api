@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from api.models import Posts, Authors
@@ -8,7 +9,7 @@ from api.models import Posts, Authors
 
 
 @api_view(['GET'])
-def index(request):
+def index(request, format=None):
     '''
     Index View with Metadata
     '''
@@ -31,7 +32,7 @@ def index(request):
 
 
 @api_view(['GET'])
-def posts(request):
+def posts(request, format=None):
     '''
     List all available posts
     '''
@@ -49,7 +50,7 @@ def posts(request):
 
 
 @api_view(['GET'])
-def post(request, id):
+def post(request, id, format=None):
     '''
     Show individual post by id
     '''
@@ -73,7 +74,7 @@ def post(request, id):
 
 
 @api_view(['GET'])
-def authors(request):
+def authors(request, format=None):
     '''
     List all authors
     '''
@@ -91,7 +92,7 @@ def authors(request):
 
 
 @api_view(['GET'])
-def author(request, id):
+def author(request, id, format=None):
     '''
     Show individual author by id
     '''
