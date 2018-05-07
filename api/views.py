@@ -10,7 +10,7 @@ from api.models import Posts, Authors
 @api_view(['GET'])
 def index(request):
     '''
-    Index View
+    Index View with Metadata
     '''
     data = {}
 
@@ -51,7 +51,7 @@ def posts(request):
 @api_view(['GET'])
 def post(request, id):
     '''
-    Show one post by id, in detail
+    Show individual post by id
     '''
     data = {}
 
@@ -93,7 +93,7 @@ def authors(request):
 @api_view(['GET'])
 def author(request, id):
     '''
-    Show one author by id, in detail
+    Show individual author by id
     '''
     data = {}
 
