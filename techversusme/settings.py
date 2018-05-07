@@ -5,8 +5,6 @@ PROJECT_APP_PATH = os.path.dirname(os.path.abspath(__file__))
 PROJECT_APP = os.path.basename(PROJECT_APP_PATH)
 PROJECT_ROOT = BASE_DIR = os.path.dirname(PROJECT_APP_PATH)
 
-BASE_URL = 'https://api.techversus.me'
-
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/'
@@ -190,8 +188,10 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'tvm-api',
+        'VERSION': 2,
     }
 }
+CACHE_MIDDLEWARE_SECONDS = 3600
 
 # Request Throttling
 REST_FRAMEWORK = {

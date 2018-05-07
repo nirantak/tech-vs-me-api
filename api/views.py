@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.reverse import reverse
@@ -15,14 +14,14 @@ def index(request, format=None):
     '''
     data = {}
 
-    data['url'] = f'{settings.BASE_URL}/'
+    data['url'] = reverse('index', request=request)
     data['web'] = 'https://techversus.me/'
     data['creator'] = 'Nirantak Raghav'
     data['endpoints'] = {
-        'Posts': f'{settings.BASE_URL}/posts/',
-        'Post': f'{settings.BASE_URL}/posts/<id:int>/',
-        'Authors': f'{settings.BASE_URL}/authors/',
-        'Author': f'{settings.BASE_URL}/authors/<id:int>/',
+        'Posts': reverse('posts', request=request),
+        'Post': reverse('post', args=[Posts.objects.earliest().id], request=request),
+        'Authors': reverse('authors', request=request),
+        'Author': reverse('author', args=[Authors.objects.earliest().id], request=request),
     }
     data['post_count'] = Posts.objects.all().count()
     data['author_count'] = Authors.objects.all().count()
@@ -43,7 +42,7 @@ def posts(request, format=None):
     for post in posts:
         data[post.id] = {
             'title': post.title,
-            'url': f'{settings.BASE_URL}/posts/{post.id}'
+            'url': reverse('post', args=[post.id], request=request),
         }
 
     return Response(data, status=status.HTTP_200_OK)
@@ -63,7 +62,7 @@ def post(request, id, format=None):
     data['url'] = post.url
     data['author'] = {
         'username': post.author,
-        'url': f'{settings.BASE_URL}/authors/{author.id}/'
+        'url': reverse('author', args=[author.id], request=request),
     }
     data['category'] = post.category
     data['summary'] = post.summary
@@ -85,7 +84,7 @@ def authors(request, format=None):
     for author in authors:
         data[author.id] = {
             'username': author.username,
-            'url': f'{settings.BASE_URL}/authors/{author.id}'
+            'url': reverse('author', args=[author.id], request=request),
         }
 
     return Response(data, status=status.HTTP_200_OK)
@@ -104,7 +103,7 @@ def author(request, id, format=None):
     data['name'] = author.name
     data['social'] = author.social
     data['post_count'] = author.post_count()
-    data['posts'] = [
-        f'{settings.BASE_URL}/posts/{p}' for p in author.post_list()]
+    data['posts'] = [reverse('post', args=[p], request=request)
+                     for p in author.post_list()]
 
     return Response(data, status=status.HTTP_200_OK)
