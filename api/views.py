@@ -1,9 +1,10 @@
+from api.models import Authors, Posts
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from api.models import Posts, Authors
+from rest_framework.reverse import reverse
+
 # from api.serializers import PostSerializer, AuthorSerializer
 
 
@@ -15,7 +16,7 @@ def index(request, format=None):
     data = {}
 
     data['url'] = reverse('index', request=request)
-    data['web'] = 'https://techversus.me/'
+    data['web'] = 'https://tvm.nirantak.com/'
     data['creator'] = 'Nirantak Raghav'
     data['endpoints'] = {
         'Posts': reverse('posts', request=request),
@@ -25,7 +26,7 @@ def index(request, format=None):
     }
     data['post_count'] = Posts.objects.all().count()
     data['author_count'] = Authors.objects.all().count()
-    data['source'] = 'https://techversus.me/feed.xml'
+    data['source'] = 'https://tvm.nirantak.com/feed.xml'
 
     return Response(data, status=status.HTTP_200_OK)
 

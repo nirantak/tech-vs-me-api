@@ -15,7 +15,7 @@ LOGOUT_REDIRECT_URL = '/'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = False
-ALLOWED_HOSTS = ['.techversus.me', 'techversusme.herokuapp.com']
+ALLOWED_HOSTS = ['.nirantak.com', 'techversusme.herokuapp.com']
 
 # Security Settings
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
@@ -35,7 +35,7 @@ X_FRAME_OPTIONS = 'DENY'
 ADMINS = [('Nirantak', os.environ['ADMIN_EMAIL'])]
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_SUBJECT_PREFIX = '[techversus.me] '
+EMAIL_SUBJECT_PREFIX = '[TVM] '
 EMAIL_USE_LOCALTIME = True
 
 
