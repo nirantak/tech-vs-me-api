@@ -6,6 +6,7 @@
 
 * [Introduction](#introduction)
 * [Endpoints](#endpoints)
+* [Scripts](#scripts)
 * [License](#license)
 
 ### Introduction
@@ -30,11 +31,17 @@ Such constraints are:
 
 | Name | URI | Method | Description |
 | ----- | ----- | ----- | ----- |
-| index | / | GET, OPTIONS | Index View with metadata |
-| posts | /posts/ | GET, OPTIONS | List all posts |
-| post | /posts/\<id:int>/ | GET, OPTIONS | Show individual post by id |
-| authors | /authors/ | GET, OPTIONS | List all authors |
-| author | /authors/\<id:int>/ | GET, OPTIONS | Show individual author by id |
+| index | / | GET | Index View with metadata |
+| posts | /posts/ | GET | List all posts |
+| post | /posts/\<id:int>/ | GET | Show individual post by id |
+| authors | /authors/ | GET | List all authors |
+| author | /authors/\<id:int>/ | GET | Show individual author by id |
+| update | /update/ | GET, POST('key') | Update Database from Atom Feed |
+
+### Scripts
+
+* [atom_feed.py](https://github.com/nirantak/tech-vs-me-api/blob/master/api/scripts/atom_feed.py)  
+  This script parses the Atom Feed from [here](https://tvm.nirantak.com/feed.xml), and updates the database with new posts, it is run automatically as a build hook from Netlify after each deploy.
 
 ### License
 
