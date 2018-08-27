@@ -1,5 +1,6 @@
 import os
 
+import jwt
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework import status
@@ -131,7 +132,8 @@ def update(request, format=None):
         return Response(data, status=status.HTTP_200_OK)
 
     elif request.method == "POST":
-        if request.POST["key"] == os.environ["UPDATE_KEY"]:
+        key = os.environ["UPDATE_KEY"]
+        if "key" in request.POST and request.POST["key"] == key:
             count = atom_feed.get_feed(FEED_URL)
             return Response({"posts_added": count}, status=status.HTTP_201_CREATED)
         return Response(

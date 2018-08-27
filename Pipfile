@@ -24,6 +24,7 @@ whitenoise = "*"
 brotli = "*"
 requests = "*"
 feedparser = "*"
+pyjwt = "*"
 
 [dev-packages]
 black = "*"
