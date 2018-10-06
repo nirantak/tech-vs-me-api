@@ -8,8 +8,11 @@ python_version = "3.7"
 python_full_version = "3.7.0"
 
 [scripts]
+format = "black --line-length 88 --verbose"
+lint = "flake8 --max-line-length=88 --statistics -vv --count"
 makemigrations = "python manage.py makemigrations"
 migrate = "python manage.py migrate"
+start = "python manage.py runserver"
 
 [packages]
 Django = "*"
