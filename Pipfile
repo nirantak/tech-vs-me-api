@@ -4,15 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [requires]
-python_version = "3.7"
 python_full_version = "3.7.1"
 
 [scripts]
-format = "black . --line-length 88 --verbose"
-lint = "flake8 --max-line-length=88 --statistics -v --count"
+format = "black . --verbose"
+lint = "flake8 --statistics --count"
+start = "python manage.py runserver"
 makemigrations = "python manage.py makemigrations"
 migrate = "python manage.py migrate"
-start = "python manage.py runserver"
 
 [packages]
 brotli = "*"
@@ -23,8 +22,6 @@ django-filter = "*"
 dj-database-url = "*"
 feedparser = "*"
 gunicorn = "*"
-Markdown = "*"
-pyjwt = "*"
 requests = "*"
 whitenoise = "*"
 "psycopg2-binary" = "*"
@@ -33,5 +30,4 @@ whitenoise = "*"
 "flake8" = "*"
 black = "*"
 pre-commit = "*"
-pytest = "*"
 rope = "*"

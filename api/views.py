@@ -1,6 +1,5 @@
 import os
 
-import jwt
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework import status
@@ -11,7 +10,6 @@ from rest_framework.reverse import reverse
 from api.models import Authors, Posts
 from api.scripts import atom_feed
 
-# from api.serializers import PostSerializer, AuthorSerializer
 WEB_URL = "https://tvm.nirantak.com/"
 FEED_URL = "https://tvm.nirantak.com/feed.xml"
 
