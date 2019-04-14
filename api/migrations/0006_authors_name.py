@@ -5,15 +5,15 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('api', '0005_auto_20180507_1610'),
-    ]
+    dependencies = [("api", "0005_auto_20180507_1610")]
 
     operations = [
         migrations.AddField(
-            model_name='authors',
-            name='name',
-            field=models.CharField(default='Nirantak Raghav', max_length=100, verbose_name='name'),
+            model_name="authors",
+            name="name",
+            field=models.CharField(
+                default="Nirantak Raghav", max_length=100, verbose_name="name"
+            ),
             preserve_default=False,
-        ),
+        )
     ]

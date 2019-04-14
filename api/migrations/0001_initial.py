@@ -7,25 +7,57 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Posts',
+            name="Posts",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=250, verbose_name='title')),
-                ('link', models.TextField(error_messages={'unique': 'This link already exists!'}, unique=True, verbose_name='link')),
-                ('author', models.CharField(default='Nirantak Raghav', max_length=250, verbose_name='author')),
-                ('category', models.CharField(max_length=250, verbose_name='category')),
-                ('summary', models.TextField(verbose_name='summary')),
-                ('published', models.DateTimeField(auto_now_add=True, verbose_name='published')),
-                ('updated', models.DateTimeField(auto_now=True, verbose_name='updated')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=250, verbose_name="title"),
+                ),
+                (
+                    "link",
+                    models.TextField(
+                        error_messages={"unique": "This link already exists!"},
+                        unique=True,
+                        verbose_name="link",
+                    ),
+                ),
+                (
+                    "author",
+                    models.CharField(
+                        default="Nirantak Raghav",
+                        max_length=250,
+                        verbose_name="author",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(max_length=250, verbose_name="category"),
+                ),
+                ("summary", models.TextField(verbose_name="summary")),
+                (
+                    "published",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="published"
+                    ),
+                ),
+                (
+                    "updated",
+                    models.DateTimeField(auto_now=True, verbose_name="updated"),
+                ),
             ],
-            options={
-                'verbose_name': 'post',
-                'verbose_name_plural': 'posts',
-            },
-        ),
+            options={"verbose_name": "post", "verbose_name_plural": "posts"},
+        )
     ]

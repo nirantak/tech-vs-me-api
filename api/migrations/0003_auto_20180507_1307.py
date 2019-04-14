@@ -5,10 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('api', '0002_auto_20180401_0016'),
-    ]
+    dependencies = [("api", "0002_auto_20180401_0016")]
 
-    operations = [
-        migrations.RenameField('Posts', 'link', 'url'),
-    ]
+    operations = [migrations.RenameField("Posts", "link", "url")]

@@ -91,7 +91,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"
+    },
 ]
 
 WSGI_APPLICATION = "techversusme.wsgi.application"
@@ -167,7 +169,9 @@ DATABASES = {
 }
 # For Heroku
 # Update database configuration with $DATABASE_URL.
-DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES["default"] = dj_database_url.config(
+    conn_max_age=600, ssl_require=True
+)
 
 # Caching
 CACHES = {

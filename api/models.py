@@ -7,7 +7,9 @@ from django.utils import timezone
 class Posts(models.Model):
     title = models.CharField("title", max_length=250)
     url = models.URLField(
-        "url", unique=True, error_messages={"unique": "This link already exists!"}
+        "url",
+        unique=True,
+        error_messages={"unique": "This link already exists!"},
     )
     author = models.CharField("author", max_length=250, default="nirantak")
     category = models.CharField("category", max_length=250)

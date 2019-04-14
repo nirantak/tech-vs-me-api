@@ -26,7 +26,9 @@ def index(request, format=None):
     data["creator"] = "Nirantak Raghav"
     data["endpoints"] = {
         "Posts": reverse("posts", request=request),
-        "Post": reverse("post", args=[Posts.objects.earliest().id], request=request),
+        "Post": reverse(
+            "post", args=[Posts.objects.earliest().id], request=request
+        ),
         "Authors": reverse("authors", request=request),
         "Author": reverse(
             "author", args=[Authors.objects.earliest().id], request=request
@@ -133,7 +135,9 @@ def update(request, format=None):
         key = os.environ["UPDATE_KEY"]
         if "key" in request.POST and request.POST["key"] == key:
             count = atom_feed.get_feed(FEED_URL)
-            return Response({"posts_added": count}, status=status.HTTP_201_CREATED)
+            return Response(
+                {"posts_added": count}, status=status.HTTP_201_CREATED
+            )
         return Response(
             {"error": "You are not authorized to do this!"},
             status=status.HTTP_401_UNAUTHORIZED,
